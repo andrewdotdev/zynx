@@ -58,10 +58,11 @@ representative at an online or offline event.
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-(NO DISCORD SERVER CREATED YET).
-All complaints will be reviewed and investigated promptly and fairly.
+To report abusive, harassing, or otherwise unacceptable behavior, request a
+private reporting channel from @andrewdotdev. You can open a GitHub issue 
+requesting contact, but do not include incident details or personal information 
+in that public request. All complaints will be reviewed and investigated promptly
+and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.

@@ -1,40 +1,99 @@
-# 🦀 discord-ferris 🦀
+# Zynx
 
-discord-ferris is a Discord API Rust library under development.
+An experimental Rust library for Discord bots, with typed Gateway events,
+async handlers, and an optional `#[event_handler]` attribute for registration.
+The workspace separates the runtime library from its procedural macros.
 
-> \[!WARNING]
-> This framework is **under development**. Features may be incomplete or unstable. Not recommended for production use.
+> [!WARNING]
+> This is an early development release. APIs may change, REST support is limited,
+> and the project is not yet recommended for production use.
 
-```diff
-+ client
-+ gateway
-+ http
-+ macros
-- cache
-- builders
-- ...
-```
+## Run from source
 
-## Install
+Install the current stable Rust toolchain, then run these commands from the
+workspace root:
 
 ```sh
-cargo add discord-ferris
+cp .env.example .env
+# Set DISCORD_TOKEN in .env to your bot token.
+cargo run -p zynx --example zynx-example --features examples
 ```
 
-Or add it to the `Cargo.toml`:
+The example responds to `!ping` in guild channels. Enable the **Message Content
+Intent** for your bot in the Discord Developer Portal and grant it permission to
+view the channel and send messages. Keep your token out of source control.
+
+The workspace uses Rust edition 2024. CI tests current stable Rust; an older
+minimum supported Rust version is not currently guaranteed.
+
+## Minimal bot
+
+For a separate project, depend on this checkout and Tokio:
 
 ```toml
 [dependencies]
-discord-ferris = "x.y.z"
+zynx = { path = "../zynx/zynx" }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
 ```
 
-## Try the example
+Adjust the path to the runtime crate in your local checkout. The example below
+reads `DISCORD_TOKEN` from the process environment; the bundled example also
+loads it from `.env`.
 
-The `ferris-example` is a temporary development entry point and **will be removed in future versions**.
+```rust,no_run
+use zynx::{client::Client, models::gateway::GatewayIntents};
 
-> \[!IMPORTANT]
-> You need **Rust 1.85.1 or higher**. Also, copy `.env.example` to `.env` and replace `your_bot_token` with your actual Discord bot token.
-
-```bash
-cargo run -p discord-ferris --example ferris-example --features examples
+#[tokio::main]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let token = std::env::var("DISCORD_TOKEN")?;
+    let intents = GatewayIntents::GUILDS
+        | GatewayIntents::GUILD_MESSAGES
+        | GatewayIntents::MESSAGE_CONTENT;
+    let mut client = Client::new(token, intents);
+    client.on_message_create(|ctx, _message| async move {
+        if !ctx.is_bot() && ctx.text() == "!ping" {
+            if let Err(error) = ctx.reply("Pong!").await {
+                eprintln!("Could not reply: {error}");
+            }
+        }
+    });
+    client.login().await?;
+    Ok(())
+}
 ```
+
+You can alternatively register free async functions with the re-exported macro.
+Parameter types must be explicit; no direct `inventory` or `serde_json` dependency
+is needed to use the macro:
+
+```rust
+use zynx::prelude::*;
+
+#[event_handler]
+async fn on_ready(ctx: Ctx) {
+    println!("Logged in as {}", ctx.user().username);
+}
+```
+
+## Looking forward to implement
+
+- Caching, sharding/session-start budgeting, a complete REST client, builders,
+  and voice transport.
+
+## Development
+
+```sh
+cargo fmt --all -- --check
+cargo clippy --workspace --all-targets --all-features
+cargo test --workspace --all-targets
+cargo test --workspace --all-targets --all-features
+cargo test --workspace --doc --all-features
+```
+
+Tests use in-memory WebSockets and local mock HTTP servers; no bot token or
+Discord connection is required. The crate README examples are compiled as
+documentation tests.
+
+See the repository's [contribution guide](https://github.com/andrewdotdev/zynx/blob/master/CONTRIBUTING.md).
+The runtime and macros use Apache-2.0; the adapted API models retain their MIT
+license and upstream attribution. See [NOTICE](https://github.com/andrewdotdev/zynx/blob/master/NOTICE.md).

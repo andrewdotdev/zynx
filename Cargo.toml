@@ -1,7 +1,7 @@
 [workspace]
 members = [
-  "discord-ferris",
-  "discord-ferris-macros",
+  "zynx",
+  "zynx-macros",
 ]
 resolver = "2"
 
@@ -9,7 +9,7 @@ resolver = "2"
 edition = "2024"
 license = "Apache-2.0"
 readme = "README.md"
-repository = "https://github.com/andrewdotdev/discord-ferris"
-documentation = "https://docs.rs/discord-ferris"
+repository = "https://github.com/andrewdotdev/zynx"
+documentation = "https://docs.rs/zynx"
 keywords = ["discord", "api", "gateway", "library", "rust"]
 categories = ["api-bindings", "asynchronous"]
