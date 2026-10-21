@@ -1,8 +1,13 @@
-# Zynx
+<p align="center">
+  <img src="../assets/zynx.png" alt="Zynx logo" width="180">
+</p>
+<h1></h1>
 
-An experimental Rust library for Discord bots, with typed Gateway events,
-async handlers, and an optional `#[event_handler]` attribute for registration.
-The workspace separates the runtime library from its procedural macros.
+<p align="center">
+  An experimental Rust library for Discord bots, with typed Gateway events,
+  async handlers, and an optional <code>#[event_handler]</code> attribute for registration.
+  The workspace separates the runtime library from its procedural macros.
+</p>
 
 > [!WARNING]
 > This is an early development release. APIs may change, REST support is limited,
