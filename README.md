@@ -1,11 +1,6 @@
 <p align="center">
   <img src="assets/zynx.png" alt="Zynx logo" width="180">
 </p>
-<h1></h1>
-
-<p align="center">
-  An experimental Rust library for Discord bots
-</p>
 
 > [!WARNING]
 > This is an early development release. APIs may change, REST support is limited,
