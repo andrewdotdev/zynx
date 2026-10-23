@@ -6,32 +6,22 @@ use crate::models::payloads::application::{APIApplication, APIApplicationRoleCon
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records}
- */
+/// See <https://discord.com/developers/docs/resources/application-role-connection-metadata#get-application-role-connection-metadata-records>
 pub type RESTGetAPIApplicationRoleConnectionMetadataResult =
     Vec<APIApplicationRoleConnectionMetadata>;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records}
- */
+/// See <https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records>
 pub type RESTPutAPIApplicationRoleConnectionMetadataJSONBody =
     Vec<APIApplicationRoleConnectionMetadata>;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records}
- */
+/// See <https://discord.com/developers/docs/resources/application-role-connection-metadata#update-application-role-connection-metadata-records>
 pub type RESTPutAPIApplicationRoleConnectionMetadataResult =
     Vec<APIApplicationRoleConnectionMetadata>;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application#get-current-application}
- */
+/// See <https://discord.com/developers/docs/resources/application#get-current-application>
 pub type RESTGetCurrentApplicationResult = APIApplication;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application#edit-current-application}
- */
+/// See <https://discord.com/developers/docs/resources/application#edit-current-application>
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Default)]
 pub struct RESTPatchCurrentApplicationJSONBody {
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -56,7 +46,5 @@ pub struct RESTPatchCurrentApplicationJSONBody {
     pub tags: Option<Vec<String>>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/application#edit-current-application}
- */
+/// See <https://discord.com/developers/docs/resources/application#edit-current-application>
 pub type RESTPatchCurrentApplicationResult = APIApplication;

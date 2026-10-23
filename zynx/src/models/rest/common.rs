@@ -5,7 +5,7 @@
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
-/// @see {@link https://discord.com/developers/docs/topics/opcodes-and-status-codes#json-json-error-codes}
+/// See <https://discord.com/developers/docs/topics/opcodes-and-status-codes#json-json-error-codes>
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize_repr, Deserialize_repr)]
 #[repr(u32)]
 pub enum RESTJSONErrorCodes {
@@ -331,7 +331,7 @@ pub enum RESTJSONErrorCodes {
     CannotExpireANonPollMessage = 520_006,
 }
 
-/// @see {@link https://discord.com/developers/docs/reference#locales}
+/// See <https://discord.com/developers/docs/reference#locales>
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Locale {
     #[serde(rename = "id")]
@@ -400,6 +400,6 @@ pub enum Locale {
     Vietnamese,
 }
 
-/// @deprecated Use {@link Locale} instead.
+/// **Deprecated:** Use [`Locale`](crate::models::rest::common::Locale) instead.
 #[deprecated(note = "Use Locale instead.")]
 pub type LocaleString = Locale;

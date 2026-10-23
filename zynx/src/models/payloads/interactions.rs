@@ -12,9 +12,7 @@ pub use crate::models::payloads::_interactions::modal_submit::*;
 pub use crate::models::payloads::_interactions::ping::*;
 pub use crate::models::payloads::_interactions::responses::*;
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIInteraction {
@@ -25,9 +23,7 @@ pub enum APIInteraction {
     APIPingInteraction(APIPingInteraction),
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIDMInteraction {
@@ -37,9 +33,7 @@ pub enum APIDMInteraction {
     APIModalSubmitDMInteraction(APIModalSubmitDMInteraction),
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIGuildInteraction {

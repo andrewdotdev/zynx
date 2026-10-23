@@ -2,7 +2,7 @@
 // Adapted from discord-api-types (c) vladfrangu
 // Rust port and modifications (c) 2025 andrewdotdev
 
-//! @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+//! See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure>
 
 use serde::{Deserialize, Serialize};
 
@@ -34,7 +34,7 @@ use crate::models::payloads::base::APIInteractionDataResolved;
 /// Decoded by the numeric option type, since option shapes overlap.
 /// This mirrors the TS union type.
 ///
-/// @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIApplicationCommandBasicOption {
@@ -51,7 +51,7 @@ pub enum APIApplicationCommandBasicOption {
 
 /// Union of all option definitions (basic + subcommand/group).
 ///
-/// @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIApplicationCommandOption {
@@ -63,7 +63,7 @@ pub enum APIApplicationCommandOption {
 /// Union of interaction data option values for chat input interactions.
 /// The concrete shape depends on the `InteractionType` (e.g., autocomplete vs execution).
 ///
-/// @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIApplicationCommandInteractionDataOption {
@@ -77,7 +77,7 @@ pub enum APIApplicationCommandInteractionDataOption {
 /// Integer/Number variants may carry different `value` semantics across interaction types,
 /// but this union preserves the TS surface.
 ///
-/// @see https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIApplicationCommandInteractionDataBasicOption {
@@ -96,7 +96,7 @@ pub enum APIApplicationCommandInteractionDataBasicOption {
 /// This extends the base application command interaction data with optional
 /// resolved references and provided options.
 ///
-/// @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data>
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIChatInputApplicationCommandInteractionData {
@@ -115,7 +115,7 @@ pub struct APIChatInputApplicationCommandInteractionData {
 
 /// Interaction data payload for **autocomplete** of chat input commands.
 ///
-/// @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data>
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIAutocompleteApplicationCommandInteractionData {
@@ -134,19 +134,19 @@ pub struct APIAutocompleteApplicationCommandInteractionData {
 
 /// Wrapper type for a chat input command interaction.
 ///
-/// @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 pub type APIChatInputApplicationCommandInteraction =
     APIApplicationCommandInteractionWrapper<APIChatInputApplicationCommandInteractionData>;
 
 /// DM-scoped wrapper for a chat input command interaction.
 ///
-/// @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 pub type APIChatInputApplicationCommandDMInteraction =
     APIDMInteractionWrapper<APIChatInputApplicationCommandInteraction>;
 
 /// Guild-scoped wrapper for a chat input command interaction.
 ///
-/// @see https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 pub type APIChatInputApplicationCommandGuildInteraction =
     APIGuildInteractionWrapper<APIChatInputApplicationCommandInteraction>;
 

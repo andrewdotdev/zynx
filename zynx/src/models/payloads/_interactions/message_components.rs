@@ -11,21 +11,15 @@ use crate::models::payloads::responses::InteractionType;
 
 use serde::{Deserialize, Serialize};
 
-/**
- * The base interaction for message components with strongly-typed `data`.
- */
+/// The base interaction for message components with strongly-typed `data`.
 pub type APIMessageComponentInteraction =
     APIBaseInteraction<InteractionType, APIMessageComponentInteractionData>;
 
-/**
- * Specialized interaction where the component is a button.
- */
+/// Specialized interaction where the component is a button.
 pub type APIMessageComponentButtonInteraction =
     APIBaseInteraction<InteractionType, APIMessageButtonInteractionData>;
 
-/**
- * Specialized interaction where the component is any select menu.
- */
+/// Specialized interaction where the component is any select menu.
 pub type APIMessageComponentSelectMenuInteraction =
     APIBaseInteraction<InteractionType, APIMessageSelectMenuInteractionData>;
 
@@ -38,19 +32,13 @@ pub enum APIMessageComponentInteractionData {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIMessageComponentBaseInteractionData {
-    /**
-     * The `custom_id` of the component
-     */
+    /// The `custom_id` of the component
     pub custom_id: String,
-    /**
-     * The type of the component
-     */
+    /// The type of the component
     pub component_type: ComponentType,
 }
 
-/**
- * Button component interaction payload.
- */
+/// Button component interaction payload.
 pub type APIMessageButtonInteractionData = APIMessageComponentBaseInteractionData;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -73,9 +61,7 @@ pub struct APIMessageRoleSelectInteractionData {
     #[serde(flatten)]
     pub base: APIMessageComponentBaseInteractionData,
     pub values: Vec<String>,
-    /**
-     * Uses the resolved structure where `roles` is expected to be present.
-     */
+    /// Uses the resolved structure where `roles` is expected to be present.
     pub resolved: APIInteractionDataResolved,
 }
 
@@ -84,9 +70,7 @@ pub struct APIMessageMentionableSelectInteractionData {
     #[serde(flatten)]
     pub base: APIMessageComponentBaseInteractionData,
     pub values: Vec<String>,
-    /**
-     * Uses the resolved structure, typically including `members`, `roles`, and `users`.
-     */
+    /// Uses the resolved structure, typically including `members`, `roles`, and `users`.
     pub resolved: APIInteractionDataResolved,
 }
 
@@ -95,9 +79,7 @@ pub struct APIMessageChannelSelectInteractionData {
     #[serde(flatten)]
     pub base: APIMessageComponentBaseInteractionData,
     pub values: Vec<String>,
-    /**
-     * Uses the resolved structure where `channels` is expected to be present.
-     */
+    /// Uses the resolved structure where `channels` is expected to be present.
     pub resolved: APIInteractionDataResolved,
 }
 

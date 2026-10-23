@@ -2,91 +2,59 @@
 // Adapted from discord-api-types (c) vladfrangu
 // Rust port and modifications (c) 2025 andrewdotdev
 
+//! Types extracted from <https://discord.com/developers/docs/resources/emoji>
+
 use serde::{Deserialize, Serialize};
 
 use crate::models::payloads::user::APIUser;
 
-/**
- * Types extracted from https://discord.com/developers/docs/resources/emoji
- */
-
-/**
- * Not documented but mentioned
- */
+/// Not documented but mentioned
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct APIPartialEmoji {
-    /**
-     * Emoji id
-     */
+    /// Emoji id
     pub id: Option<String>,
-    /**
-     * Emoji name (can be null only in reaction emoji objects)
-     */
+    /// Emoji name (can be null only in reaction emoji objects)
     pub name: Option<String>,
-    /**
-     * Whether this emoji is animated
-     */
+    /// Whether this emoji is animated
     pub animated: Option<bool>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure}
- */
+/// See <https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure>
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct APIEmoji {
-    /**
-     * Roles this emoji is whitelisted to
-     */
+    /// Roles this emoji is whitelisted to
     pub roles: Option<Vec<String>>,
-    /**
-     * User that created this emoji
-     */
+    /// User that created this emoji
     pub user: Option<APIUser>,
-    /**
-     * Whether this emoji must be wrapped in colons
-     */
+    /// Whether this emoji must be wrapped in colons
     pub require_colons: Option<bool>,
-    /**
-     * Whether this emoji is managed
-     */
+    /// Whether this emoji is managed
     pub managed: Option<bool>,
-    /**
-     * Whether this emoji can be used, may be false due to loss of Server Boosts
-     */
+    /// Whether this emoji can be used, may be false due to loss of Server Boosts
     pub available: Option<bool>,
 
     #[serde(flatten)]
     pub base: APIPartialEmoji,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/emoji#emoji-object-applicationowned-emoji}
- */
+/// See <https://discord.com/developers/docs/resources/emoji#emoji-object-applicationowned-emoji>
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct APIApplicationEmoji {
-    /**
-     * Roles allowed to use this emoji.
-     *
-     * @remarks Always empty.
-     */
+    /// Roles allowed to use this emoji.
+    ///
+    /// **Note:** Always empty.
     pub roles: Vec<String>,
-    /**
-     * Whether this emoji must be wrapped in colons.
-     *
-     * @remarks Always `true`.
-     */
+    /// Whether this emoji must be wrapped in colons.
+    ///
+    /// **Note:** Always `true`.
     pub require_colons: bool,
-    /**
-     * Whether this emoji is managed.
-     *
-     * @remarks Always `false`.
-     */
+    /// Whether this emoji is managed.
+    ///
+    /// **Note:** Always `false`.
     pub managed: bool,
-    /**
-     * Whether this emoji is available.
-     *
-     * @remarks Always `true`.
-     */
+    /// Whether this emoji is available.
+    ///
+    /// **Note:** Always `true`.
     pub available: bool,
 
     #[serde(flatten)]

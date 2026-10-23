@@ -2,6 +2,8 @@
 // Adapted from discord-api-types (c) vladfrangu
 // Rust port and modifications (c) 2025 andrewdotdev
 
+//! Types extracted from <https://discord.com/developers/docs/resources/webhook>
+
 use serde::{Deserialize, Serialize};
 
 use crate::models::payloads::APIEntitlement;
@@ -14,72 +16,40 @@ use super::{
     user::APIUser,
 };
 
-/**
- * Types extracted from https://discord.com/developers/docs/resources/webhook
- */
-
-/**
- * @see {@link https://discord.com/developers/docs/resources/webhook#webhook-object}
- */
+/// See <https://discord.com/developers/docs/resources/webhook#webhook-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIWebhook {
-    /**
-     * The id of the webhook
-     */
+    /// The id of the webhook
     pub id: String,
-    /**
-     * The type of the webhook
-     *
-     * @see {@link https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types}
-     */
+    /// The type of the webhook
+    ///
+    /// See <https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types>
     pub r#type: WebhookType,
-    /**
-     * The guild id this webhook is for
-     */
+    /// The guild id this webhook is for
     pub guild_id: Option<String>,
-    /**
-     * The channel id this webhook is for
-     */
+    /// The channel id this webhook is for
     pub channel_id: String,
-    /**
-     * The user this webhook was created by (not returned when getting a webhook with its token)
-     *
-     * @see {@link https://discord.com/developers/docs/resources/user#user-object}
-     */
+    /// The user this webhook was created by (not returned when getting a webhook with its token)
+    ///
+    /// See <https://discord.com/developers/docs/resources/user#user-object>
     pub user: Option<APIUser>,
-    /**
-     * The default name of the webhook
-     */
+    /// The default name of the webhook
     pub name: Option<String>,
-    /**
-     * The default avatar of the webhook
-     */
+    /// The default avatar of the webhook
     pub avatar: Option<String>,
-    /**
-     * The secure token of the webhook (returned for Incoming Webhooks)
-     */
+    /// The secure token of the webhook (returned for Incoming Webhooks)
     pub token: Option<String>,
-    /**
-     * The bot/OAuth2 application that created this webhook
-     */
+    /// The bot/OAuth2 application that created this webhook
     pub application_id: Option<String>,
-    /**
-     * The guild of the channel that this webhook is following (returned for Channel Follower Webhooks)
-     */
+    /// The guild of the channel that this webhook is following (returned for Channel Follower Webhooks)
     pub source_guild: Option<APIWebhookSourceGuild>,
-    /**
-     * The channel that this webhook is following (returned for Channel Follower Webhooks)
-     */
+    /// The channel that this webhook is following (returned for Channel Follower Webhooks)
     pub source_channel: Option<APIWebhookSourceChannel>,
-    /**
-     * The url used for executing the webhook (returned by the webhooks OAuth2 flow)
-     */
+    /// The url used for executing the webhook (returned by the webhooks OAuth2 flow)
     pub url: Option<String>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/events/webhook-events#webhook-event-payloads}
- */
+/// See <https://discord.com/developers/docs/events/webhook-events#webhook-event-payloads>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIWebhookEvent {
@@ -105,83 +75,55 @@ impl<'de> Deserialize<'de> for APIWebhookEvent {
     }
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/events/webhook-events#event-body-object}
- */
+/// See <https://discord.com/developers/docs/events/webhook-events#event-body-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(tag = "type")]
 pub enum APIWebhookEventBody {
     #[serde(rename = "APPLICATION_AUTHORIZED")]
     ApplicationAuthorized {
-        /**
-         * Timestamp of when the event occurred in ISO8601 format
-         */
+        /// Timestamp of when the event occurred in ISO8601 format
         timestamp: String,
-        /**
-         * Data for the event. The shape depends on the event type
-         */
+        /// Data for the event. The shape depends on the event type
         data: APIWebhookEventApplicationAuthorizedData,
     },
     #[serde(rename = "APPLICATION_DEAUTHORIZED")]
     ApplicationDeauthorized {
-        /**
-         * Timestamp of when the event occurred in ISO8601 format
-         */
+        /// Timestamp of when the event occurred in ISO8601 format
         timestamp: String,
-        /**
-         * Data for the event. The shape depends on the event type
-         */
+        /// Data for the event. The shape depends on the event type
         data: APIWebhookEventApplicationDeauthorizedData,
     },
     #[serde(rename = "ENTITLEMENT_CREATE")]
     EntitlementCreate {
-        /**
-         * Timestamp of when the event occurred in ISO8601 format
-         */
+        /// Timestamp of when the event occurred in ISO8601 format
         timestamp: String,
-        /**
-         * Data for the event. The shape depends on the event type
-         */
+        /// Data for the event. The shape depends on the event type
         data: APIWebhookEventEntitlementCreateData,
     },
     #[serde(rename = "QUEST_USER_ENROLLMENT")]
     QuestUserEnrollment {
-        /**
-         * Timestamp of when the event occurred in ISO8601 format
-         */
+        /// Timestamp of when the event occurred in ISO8601 format
         timestamp: String,
-        /**
-         * Data for the event. The shape depends on the event type
-         */
+        /// Data for the event. The shape depends on the event type
         data: APIWebhookEventQuestUserEnrollmentData,
     },
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIWebhookEventApplicationAuthorizedData {
-    /**
-     * Installation context for the authorization. Either guild (`0`) if installed to a server or user (`1`) if installed to a user's account
-     */
+    /// Installation context for the authorization. Either guild (`0`) if installed to a server or user (`1`) if installed to a user's account
     pub integration_type: Option<ApplicationIntegrationType>,
-    /**
-     * User who authorized the app
-     */
+    /// User who authorized the app
     pub user: APIUser,
-    /**
-     * List of scopes the user authorized
-     */
+    /// List of scopes the user authorized
     pub scopes: Vec<OAuth2Scopes>,
-    /**
-     * Server which app was authorized for (when integration type is `0`)
-     */
+    /// Server which app was authorized for (when integration type is `0`)
     pub guild: Option<APIGuild>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIWebhookEventApplicationDeauthorizedData {
-    /**
-     * User who deauthorized the app
-     */
+    /// User who deauthorized the app
     pub user: APIUser,
 }
 
@@ -189,100 +131,62 @@ pub type APIWebhookEventEntitlementCreateData = APIEntitlement;
 
 pub type APIWebhookEventQuestUserEnrollmentData = ();
 
-/**
- * @see {@link https://discord.com/developers/docs/events/webhook-events#webhook-types}
- */
+/// See <https://discord.com/developers/docs/events/webhook-events#webhook-types>
 #[derive(Debug, Clone, PartialEq, serde_repr::Serialize_repr, serde_repr::Deserialize_repr)]
 #[repr(u8)]
 pub enum ApplicationWebhookType {
-    /**
-     * PING event sent to verify your Webhook Event URL is active
-     */
+    /// PING event sent to verify your Webhook Event URL is active
     Ping = 0,
-    /**
-     * Webhook event (details for event in event body object)
-     */
+    /// Webhook event (details for event in event body object)
     Event = 1,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIWebhookEventBase<Type, Event> {
-    /**
-     * Version scheme for the webhook event. Currently always `1`
-     */
+    /// Version scheme for the webhook event. Currently always `1`
     pub version: u8,
-    /**
-     * ID of your app
-     */
+    /// ID of your app
     pub application_id: String,
-    /**
-     * Type of webhook
-     */
+    /// Type of webhook
     pub r#type: Type,
-    /**
-     * Event data payload
-     */
+    /// Event data payload
     pub event: Event,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIWebhookEventEventBase<Type, Data> {
-    /**
-     * Event type
-     */
+    /// Event type
     pub r#type: Type,
-    /**
-     * Timestamp of when the event occurred in ISO8601 format
-     */
+    /// Timestamp of when the event occurred in ISO8601 format
     pub timestamp: String,
-    /**
-     * Data for the event. The shape depends on the event type
-     */
+    /// Data for the event. The shape depends on the event type
     pub data: Data,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/events/webhook-events#event-types}
- */
+/// See <https://discord.com/developers/docs/events/webhook-events#event-types>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ApplicationWebhookEventType {
-    /**
-     * Sent when an app was authorized by a user to a server or their account
-     */
+    /// Sent when an app was authorized by a user to a server or their account
     #[serde(rename = "APPLICATION_AUTHORIZED")]
     ApplicationAuthorized,
-    /**
-     * Sent when an app was deauthorized by a user
-     */
+    /// Sent when an app was deauthorized by a user
     #[serde(rename = "APPLICATION_DEAUTHORIZED")]
     ApplicationDeauthorized,
-    /**
-     * Entitlement was created
-     */
+    /// Entitlement was created
     #[serde(rename = "ENTITLEMENT_CREATE")]
     EntitlementCreate,
-    /**
-     * User was added to a Quest (currently unavailable)
-     */
+    /// User was added to a Quest (currently unavailable)
     #[serde(rename = "QUEST_USER_ENROLLMENT")]
     QuestUserEnrollment,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types}
- */
+/// See <https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-types>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum WebhookType {
-    /**
-     * Incoming Webhooks can post messages to channels with a generated token
-     */
+    /// Incoming Webhooks can post messages to channels with a generated token
     Incoming = 1,
-    /**
-     * Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels
-     */
+    /// Channel Follower Webhooks are internal webhooks used with Channel Following to post new messages into channels
     ChannelFollower = 2,
-    /**
-     * Application webhooks are webhooks used with Interactions
-     */
+    /// Application webhooks are webhooks used with Interactions
     Application = 3,
 }

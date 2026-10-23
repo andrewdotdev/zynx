@@ -30,6 +30,7 @@ cargo clippy --workspace --all-targets --all-features
 cargo test --workspace --all-targets
 cargo test --workspace --all-targets --all-features
 cargo test --workspace --doc --all-features
+RUSTDOCFLAGS="-D rustdoc::broken_intra_doc_links -D rustdoc::invalid_html_tags -D rustdoc::bare_urls" cargo doc --workspace --no-deps --all-features
 ```
 
 Use `cargo fmt --all` to apply formatting. Add a regression test for behavioral
@@ -44,6 +45,18 @@ formatting rewrites in behavioral patches.
 
 The default and `examples` feature configurations are tested on stable Rust.
 An older minimum supported Rust version is not currently guaranteed.
+
+## API documentation
+
+Use Rustdoc Markdown in `///` comments for public items and `//!` comments for
+modules. Link Rust items with intra-doc links such as
+`[APIUser](crate::models::payloads::APIUser)` and wrap standalone URLs in angle
+brackets. Use Markdown paragraphs or headings for defaults, deprecation notes,
+parameters, and return values instead of TypeScript/JSDoc tags. Mark code fences
+with their language, and use `no_run` for Rust examples that require a bot token.
+
+The documentation build checks links, HTML tags, and bare URLs. Open
+`target/doc/zynx/index.html` to inspect the same Rustdoc format used by docs.rs.
 
 ## Report a bug or propose a feature
 

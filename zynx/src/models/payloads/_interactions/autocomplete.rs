@@ -11,14 +11,10 @@ use crate::models::payloads::{
 pub type APIApplicationCommandAutocompleteInteraction =
     APIBaseInteraction<InteractionType, APIAutocompleteApplicationCommandInteractionData>;
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 pub type APIApplicationCommandAutocompleteDMInteraction =
     APIDMInteractionWrapper<APIApplicationCommandAutocompleteInteraction>;
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 pub type APIApplicationCommandAutocompleteGuildInteraction =
     APIGuildInteractionWrapper<APIApplicationCommandAutocompleteInteraction>;

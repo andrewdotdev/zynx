@@ -19,9 +19,7 @@ use crate::models::rest::Locale;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/channel#message-interaction-metadata-object}
- */
+/// See <https://discord.com/developers/docs/resources/channel#message-interaction-metadata-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIMessageInteractionMetadata {
@@ -32,69 +30,45 @@ pub enum APIMessageInteractionMetadata {
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIBaseInteractionMetadata {
-    /**
-     * ID of the interaction
-     */
+    /// ID of the interaction
     pub id: String,
-    /**
-     * Type of interaction
-     */
+    /// Type of interaction
     pub r#type: InteractionType,
-    /**
-     * User who triggered the interaction
-     */
+    /// User who triggered the interaction
     pub user: APIUser,
-    /**
-     * IDs for installation context(s) related to an interaction
-     */
+    /// IDs for installation context(s) related to an interaction
     pub authorizing_integration_owners: APIAuthorizingIntegrationOwnersMap,
-    /**
-     * ID of the original response message, present only on follow-up messages
-     */
+    /// ID of the original response message, present only on follow-up messages
     pub original_response_message_id: Option<String>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure}
- */
+/// See <https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-application-command-interaction-metadata-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIApplicationCommandInteractionMetadata {
     #[serde(flatten)]
     pub base: APIBaseInteractionMetadata,
-    /**
-     * The user the command was run on, present only on user commands interactions
-     */
+    /// The user the command was run on, present only on user commands interactions
     pub target_user: Option<APIUser>,
-    /**
-     * The ID of the message the command was run on, present only on message command interactions.
-     * The original response message will also have `message_reference` and `referenced_message` pointing to this message.
-     */
+    /// The ID of the message the command was run on, present only on message command interactions.
+    /// The original response message will also have `message_reference` and `referenced_message` pointing to this message.
     pub target_message_id: Option<String>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/message#message-command-interaction-metadata-structure}
- */
+/// See <https://discord.com/developers/docs/resources/message#message-command-interaction-metadata-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIMessageComponentInteractionMetadata {
     #[serde(flatten)]
     pub base: APIBaseInteractionMetadata,
-    /**
-     * ID of the message that contained the interactive component
-     */
+    /// ID of the message that contained the interactive component
     pub interacted_message_id: String,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure}
- */
+/// See <https://discord.com/developers/docs/resources/message#message-interaction-metadata-object-modal-submit-interaction-metadata-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIModalSubmitInteractionMetadata {
     #[serde(flatten)]
     pub base: APIBaseInteractionMetadata,
-    /**
-     * Metadata for the interaction that was used to open the modal
-     */
+    /// Metadata for the interaction that was used to open the modal
     pub triggering_interaction_metadata:
         Box<APIApplicationCommandInteractionMetadataOrMessageComponentInteractionMetadata>,
 }
@@ -119,36 +93,22 @@ pub struct PartialAPIMessageInteractionGuildMember {
     pub roles: Vec<String>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIMessageInteraction {
-    /**
-     * ID of the interaction
-     */
+    /// ID of the interaction
     pub id: String,
-    /**
-     * The type of interaction
-     */
+    /// The type of interaction
     pub r#type: InteractionType,
-    /**
-     * The name of the application command, including subcommands and subcommand groups
-     */
+    /// The name of the application command, including subcommands and subcommand groups
     pub name: String,
-    /**
-     * The user who invoked the interaction
-     */
+    /// The user who invoked the interaction
     pub user: APIUser,
-    /**
-     * The guild member who invoked the interaction, only sent in MESSAGE_CREATE events
-     */
+    /// The guild member who invoked the interaction, only sent in MESSAGE_CREATE events
     pub member: Option<PartialAPIMessageInteractionGuildMember>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/guild#guild-member-object}
- */
+/// See <https://discord.com/developers/docs/resources/guild#guild-member-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIInteractionGuildMember {
     #[serde(flatten)]
@@ -165,94 +125,52 @@ impl APIInteractionGuildMember {
 
 // INTERACTIONS RECEIVED
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIBaseInteraction<TType, Data> {
-    /**
-     * ID of the interaction
-     */
+    /// ID of the interaction
     pub id: String,
-    /**
-     * ID of the application this interaction is for
-     */
+    /// ID of the application this interaction is for
     pub application_id: String,
-    /**
-     * The type of interaction
-     */
+    /// The type of interaction
     pub r#type: TType,
-    /**
-     * The command data payload
-     */
+    /// The command data payload
     pub data: Option<Data>,
-    /**
-     * Guild that the interaction was sent from
-     */
+    /// Guild that the interaction was sent from
     pub guild: Option<APIPartialInteractionGuild>,
-    /**
-     * Guild that the interaction was sent from
-     */
+    /// Guild that the interaction was sent from
     pub guild_id: Option<String>,
-    /**
-     * The channel it was sent from
-     */
+    /// The channel it was sent from
     pub channel: Option<APIInteractionChannelRef>,
-    /**
-     * The id of the channel it was sent from
-     *
-     * @deprecated Use {@link APIBaseInteraction.channel} instead
-     */
+    /// The id of the channel it was sent from
+    ///
+    /// **Deprecated:** Use [`APIBaseInteraction::channel`](crate::models::payloads::_interactions::base::APIBaseInteraction::channel) instead
     pub channel_id: Option<String>,
-    /**
-     * Guild member data for the invoking user, including permissions
-     *
-     * **This is only sent when an interaction is invoked in a guild**
-     */
+    /// Guild member data for the invoking user, including permissions
+    ///
+    /// **This is only sent when an interaction is invoked in a guild**
     pub member: Option<APIInteractionGuildMember>,
-    /**
-     * User object for the invoking user, if invoked in a DM
-     */
+    /// User object for the invoking user, if invoked in a DM
     pub user: Option<APIUser>,
-    /**
-     * A continuation token for responding to the interaction
-     */
+    /// A continuation token for responding to the interaction
     pub token: String,
-    /**
-     * Read-only property, always `1`
-     */
+    /// Read-only property, always `1`
     pub version: u8,
-    /**
-     * For components, the message they were attached to
-     */
+    /// For components, the message they were attached to
     pub message: Option<APIMessage>,
-    /**
-     * Bitwise set of permissions the app or bot has within the channel the interaction was sent from
-     */
+    /// Bitwise set of permissions the app or bot has within the channel the interaction was sent from
     pub app_permissions: String,
-    /**
-     * The selected language of the invoking user
-     */
+    /// The selected language of the invoking user
     pub locale: Locale,
-    /**
-     * The guild's preferred locale, if invoked in a guild
-     */
+    /// The guild's preferred locale, if invoked in a guild
     pub guild_locale: Option<Locale>,
-    /**
-     * For monetized apps, any entitlements for the invoking user, representing access to premium SKUs
-     */
+    /// For monetized apps, any entitlements for the invoking user, representing access to premium SKUs
     pub entitlements: Vec<APIEntitlement>,
-    /**
-     * Mapping of installation contexts that the interaction was authorized for to related user or guild IDs.
-     */
+    /// Mapping of installation contexts that the interaction was authorized for to related user or guild IDs.
     pub authorizing_integration_owners: APIAuthorizingIntegrationOwnersMap,
-    /**
-     * Context where the interaction was triggered from
-     */
+    /// Context where the interaction was triggered from
     pub context: Option<InteractionContextType>,
-    /**
-     * Attachment size limit in bytes
-     */
+    /// Attachment size limit in bytes
     pub attachment_size_limit: i64,
 }
 
@@ -263,9 +181,7 @@ pub struct APIInteractionChannelRef {
     pub r#type: ChannelType,
 }
 
-/**
- * Mapping of installation contexts that the interaction was authorized for to related user or guild IDs.
- */
+/// Mapping of installation contexts that the interaction was authorized for to related user or guild IDs.
 pub type APIAuthorizingIntegrationOwnersMap = HashMap<ApplicationIntegrationType, String>;
 
 pub type APIDMInteractionWrapper<Original> = Original;
@@ -280,9 +196,7 @@ pub struct APIInteractionDataResolvedChannelBase {
     pub permissions: String,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/channel#channel-object}
- */
+/// See <https://discord.com/developers/docs/resources/channel#channel-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIInteractionDataResolvedChannel {
@@ -326,9 +240,7 @@ impl<'de> Deserialize<'de> for APIInteractionDataResolvedChannel {
     }
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/resources/guild#guild-member-object}
- */
+/// See <https://discord.com/developers/docs/resources/guild#guild-member-object>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIInteractionDataResolvedGuildMember {
     #[serde(flatten)]
@@ -342,9 +254,7 @@ pub struct APIInteractionDataResolvedGuildMember {
     pub permissions: String,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIInteractionDataResolved {
     pub users: Option<HashMap<String, APIUser>>,
@@ -354,23 +264,17 @@ pub struct APIInteractionDataResolved {
     pub attachments: Option<HashMap<String, APIAttachment>>,
 }
 
-/**
- * @deprecated Renamed to `APIInteractionDataResolved`
- */
+/// **Deprecated:** Renamed to `APIInteractionDataResolved`
 pub type APIChatInputApplicationCommandInteractionDataResolved = APIInteractionDataResolved;
 
-/**
- * `users` and optional `members` from APIInteractionDataResolved, for user commands and user selects
- */
+/// `users` and optional `members` from APIInteractionDataResolved, for user commands and user selects
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIUserInteractionDataResolved {
     pub members: Option<HashMap<String, APIInteractionDataResolvedGuildMember>>,
     pub users: HashMap<String, APIUser>,
 }
 
-/**
- * @deprecated Renamed to `APIUserInteractionDataResolved`
- */
+/// **Deprecated:** Renamed to `APIUserInteractionDataResolved`
 pub type APIUserApplicationCommandInteractionDataResolved = APIUserInteractionDataResolved;
 
 crate::utils::serde::numeric_union!(APIMessageInteractionMetadata, "/type", {

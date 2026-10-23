@@ -7,9 +7,7 @@ use serde_repr::{Deserialize_repr, Serialize_repr};
 
 use crate::models::payloads::LocalizationMap;
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type}
- */
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type>
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
 pub enum ApplicationCommandOptionType {
@@ -26,9 +24,7 @@ pub enum ApplicationCommandOptionType {
     Attachment,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure}
- */
+/// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIApplicationCommandOptionChoice<ValueType = OptionChoiceValue> {
     pub name: String,

@@ -2,7 +2,7 @@
 // Adapted from discord-api-types (c) vladfrangu
 // Rust port and modifications (c) 2025 andrewdotdev
 
-//! Types extracted from https://discord.com/developers/docs/resources/audit-log
+//! Types extracted from <https://discord.com/developers/docs/resources/audit-log>
 
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
@@ -28,35 +28,35 @@ use crate::models::payloads::application_commands::APIApplicationCommand;
 // -------------------------------------------------------------------------------------------------
 
 /// Container returned by the Audit Log endpoint.
-/// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-object-audit-log-structure}
+/// See <https://discord.com/developers/docs/resources/audit-log#audit-log-object-audit-log-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIAuditLog {
     /// List of application commands found in the audit log
-    /// @see {@link https://discord.com/developers/docs/interactions/application-commands#application-command-object}
+    /// See <https://discord.com/developers/docs/interactions/application-commands#application-command-object>
     pub application_commands: Vec<APIApplicationCommand>,
     /// Webhooks found in the audit log
-    /// @see {@link https://discord.com/developers/docs/resources/webhook#webhook-object}
+    /// See <https://discord.com/developers/docs/resources/webhook#webhook-object>
     pub webhooks: Vec<APIWebhook>,
     /// Users found in the audit log
-    /// @see {@link https://discord.com/developers/docs/resources/user#user-object}
+    /// See <https://discord.com/developers/docs/resources/user#user-object>
     pub users: Vec<APIUser>,
     /// Audit log entries
-    /// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object}
+    /// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object>
     pub audit_log_entries: Vec<APIAuditLogEntry>,
     /// List of auto moderation rules referenced in the audit log
-    /// @see {@link https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object}
+    /// See <https://discord.com/developers/docs/resources/auto-moderation#auto-moderation-rule-object>
     pub auto_moderation_rules: Vec<APIAutoModerationRule>,
     /// Partial integration objects
-    /// @see {@link https://discord.com/developers/docs/resources/guild#integration-object}
+    /// See <https://discord.com/developers/docs/resources/guild#integration-object>
     pub integrations: Vec<APIGuildIntegration>,
     /// Threads found in the audit log
     ///
     /// Threads referenced in THREAD_CREATE and THREAD_UPDATE events are included in the threads list,
     /// since archived threads might not be kept in memory by clients.
-    /// @see {@link https://discord.com/developers/docs/resources/channel#channel-object}
+    /// See <https://discord.com/developers/docs/resources/channel#channel-object>
     pub threads: Vec<APIChannel>,
     /// The guild scheduled events in the audit log
-    /// @see {@link https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object}
+    /// See <https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object>
     pub guild_scheduled_events: Vec<APIGuildScheduledEvent>,
 }
 
@@ -65,30 +65,30 @@ pub struct APIAuditLog {
 // -------------------------------------------------------------------------------------------------
 
 /// One entry describing a moderation/configuration action.
-/// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-entry-structure}
+/// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-entry-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIAuditLogEntry {
     /// ID of the affected entity (webhook, user, role, etc.)
     pub target_id: Option<String>,
     /// Changes made to the `target_id`
-    /// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-change-object}
+    /// See <https://discord.com/developers/docs/resources/audit-log#audit-log-change-object>
     pub changes: Option<Vec<APIAuditLogChange>>,
     /// The user who made the changes. Can be `null` (e.g. webhooks acting on themselves).
     pub user_id: Option<Snowflake>,
     /// ID of the entry
     pub id: Snowflake,
     /// Type of action that occurred
-    /// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events}
+    /// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events>
     pub action_type: AuditLogEvent,
     /// Additional info for certain action types
-    /// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info}
+    /// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info>
     pub options: Option<APIAuditLogOptions>,
     /// The reason for the change (0-512 characters)
     pub reason: Option<String>,
 }
 
 /// Enumeration of all audit log actions (stable numeric codes).
-/// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events}
+/// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-events>
 #[derive(Debug, Copy, Clone, Eq, Hash, PartialEq, Serialize_repr, Deserialize_repr)]
 #[repr(u16)]
 pub enum AuditLogEvent {
@@ -183,7 +183,7 @@ pub enum AuditLogEvent {
 // -------------------------------------------------------------------------------------------------
 
 /// Extra metadata present on specific actions.
-/// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info}
+/// See <https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIAuditLogOptions {
     /// Name of the Auto Moderation rule that was triggered
@@ -238,7 +238,7 @@ pub type AuditLogRuleTriggerType = AutoModerationRuleTriggerType;
 /// TypeScript models this as a **large union** keyed by `key` (e.g., "name", "icon_hash", "$add").
 /// To keep this ergonomic and future-proof, we use a generic payload with `serde_json::Value`.
 /// You can pattern-match on `key` to downcast `new_value`/`old_value` as needed.
-/// @see {@link https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-structure}
+/// See <https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-structure>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIAuditLogChange {
     /// Discriminant describing which property changed.

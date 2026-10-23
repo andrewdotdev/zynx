@@ -17,13 +17,9 @@ use crate::models::payloads::responses::InteractionType;
 pub struct APIApplicationCommandIntegerOptionBase {
     #[serde(flatten)]
     pub base: APIApplicationCommandOptionBase<ApplicationCommandOptionType>,
-    /**
-     * If the option is an `INTEGER` or `NUMBER` type, the minimum value permitted.
-     */
+    /// If the option is an `INTEGER` or `NUMBER` type, the minimum value permitted.
     pub min_value: Option<f64>,
-    /**
-     * If the option is an `INTEGER` or `NUMBER` type, the maximum value permitted.
-     */
+    /// If the option is an `INTEGER` or `NUMBER` type, the maximum value permitted.
     pub max_value: Option<f64>,
 }
 

@@ -13,12 +13,11 @@ use crate::models::payloads::{
 
 // Interactions
 
-/**
- * A type-guard check for DM interactions
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the interaction was received in a DM channel
- */
+/// A type-guard check for DM interactions
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the interaction was received in a DM channel
 pub fn isDMInteraction(interaction: &APIInteraction) -> bool {
     match interaction {
         APIInteraction::APIApplicationCommandAutocompleteInteraction(x) => x.guild_id.is_none(),
@@ -45,24 +44,22 @@ pub fn isDMInteraction(interaction: &APIInteraction) -> bool {
     }
 }
 
-/**
- * A type-guard check for guild interactions
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the interaction was received in a guild
- */
+/// A type-guard check for guild interactions
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the interaction was received in a guild
 pub fn isGuildInteraction(interaction: &APIInteraction) -> bool {
     !isDMInteraction(interaction)
 }
 
 // ApplicationCommandInteractions
 
-/**
- * A type-guard check for DM application command interactions
- *
- * @param interaction - The application command interaction to check against
- * @returns A boolean that indicates if the application command interaction was received in a DM channel
- */
+/// A type-guard check for DM application command interactions
+///
+/// **Parameter `interaction`:** The application command interaction to check against
+///
+/// **Returns:** A boolean that indicates if the application command interaction was received in a DM channel
 pub fn isApplicationCommandDMInteraction(interaction: &APIApplicationCommandInteraction) -> bool {
     match interaction {
         APIApplicationCommandInteraction::APIChatInputApplicationCommandInteraction(x) => {
@@ -82,12 +79,11 @@ pub fn isApplicationCommandDMInteraction(interaction: &APIApplicationCommandInte
     }
 }
 
-/**
- * A type-guard check for guild application command interactions
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the application command interaction was received in a guild
- */
+/// A type-guard check for guild application command interactions
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the application command interaction was received in a guild
 pub fn isApplicationCommandGuildInteraction(
     interaction: &APIApplicationCommandInteraction,
 ) -> bool {
@@ -96,44 +92,40 @@ pub fn isApplicationCommandGuildInteraction(
 
 // MessageComponentInteractions
 
-/**
- * A type-guard check for DM message component interactions
- *
- * @param interaction - The message component interaction to check against
- * @returns A boolean that indicates if the message component interaction was received in a DM channel
- */
+/// A type-guard check for DM message component interactions
+///
+/// **Parameter `interaction`:** The message component interaction to check against
+///
+/// **Returns:** A boolean that indicates if the message component interaction was received in a DM channel
 pub fn isMessageComponentDMInteraction(interaction: &APIMessageComponentInteraction) -> bool {
     interaction.guild_id.is_none()
 }
 
-/**
- * A type-guard check for guild message component interactions
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the message component interaction was received in a guild
- */
+/// A type-guard check for guild message component interactions
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the message component interaction was received in a guild
 pub fn isMessageComponentGuildInteraction(interaction: &APIMessageComponentInteraction) -> bool {
     interaction.guild_id.is_some()
 }
 
 // Buttons
 
-/**
- * A type-guard check for buttons that have a `url` attached to them.
- *
- * @param component - The button to check against
- * @returns A boolean that indicates if the button has a `url` attached to it
- */
+/// A type-guard check for buttons that have a `url` attached to them.
+///
+/// **Parameter `component`:** The button to check against
+///
+/// **Returns:** A boolean that indicates if the button has a `url` attached to it
 pub fn isLinkButton(component: &APIButtonComponent) -> bool {
     matches!(component, APIButtonComponent::APIButtonComponentWithURL(_))
 }
 
-/**
- * A type-guard check for buttons that have a `custom_id` attached to them.
- *
- * @param component - The button to check against
- * @returns A boolean that indicates if the button has a `custom_id` attached to it
- */
+/// A type-guard check for buttons that have a `custom_id` attached to them.
+///
+/// **Parameter `component`:** The button to check against
+///
+/// **Returns:** A boolean that indicates if the button has a `custom_id` attached to it
 pub fn isInteractionButton(component: &APIButtonComponent) -> bool {
     matches!(
         component,
@@ -144,12 +136,11 @@ pub fn isInteractionButton(component: &APIButtonComponent) -> bool {
 
 // Message Components
 
-/**
- * A type-guard check for message component interactions
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the interaction is a message component
- */
+/// A type-guard check for message component interactions
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the interaction is a message component
 pub fn isMessageComponentInteraction(interaction: &APIInteraction) -> bool {
     matches!(
         interaction,
@@ -157,12 +148,11 @@ pub fn isMessageComponentInteraction(interaction: &APIInteraction) -> bool {
     )
 }
 
-/**
- * A type-guard check for button message component interactions
- *
- * @param interaction - The message component interaction to check against
- * @returns A boolean that indicates if the message component is a button
- */
+/// A type-guard check for button message component interactions
+///
+/// **Parameter `interaction`:** The message component interaction to check against
+///
+/// **Returns:** A boolean that indicates if the message component is a button
 pub fn isMessageComponentButtonInteraction(interaction: &APIMessageComponentInteraction) -> bool {
     matches!(
         interaction.data.as_ref(),
@@ -170,12 +160,11 @@ pub fn isMessageComponentButtonInteraction(interaction: &APIMessageComponentInte
     )
 }
 
-/**
- * A type-guard check for select menu message component interactions
- *
- * @param interaction - The message component interaction to check against
- * @returns A boolean that indicates if the message component is a select menu
- */
+/// A type-guard check for select menu message component interactions
+///
+/// **Parameter `interaction`:** The message component interaction to check against
+///
+/// **Returns:** A boolean that indicates if the message component is a select menu
 pub fn isMessageComponentSelectMenuInteraction(
     interaction: &APIMessageComponentInteraction,
 ) -> bool {
@@ -187,12 +176,11 @@ pub fn isMessageComponentSelectMenuInteraction(
 
 // Application Commands
 
-/**
- * A type-guard check for chat input application commands.
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the interaction is a chat input application command
- */
+/// A type-guard check for chat input application commands.
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the interaction is a chat input application command
 pub fn isChatInputApplicationCommandInteraction(
     interaction: &APIApplicationCommandInteraction,
 ) -> bool {
@@ -202,12 +190,11 @@ pub fn isChatInputApplicationCommandInteraction(
     )
 }
 
-/**
- * A type-guard check for context menu application commands.
- *
- * @param interaction - The interaction to check against
- * @returns A boolean that indicates if the interaction is a context menu application command
- */
+/// A type-guard check for context menu application commands.
+///
+/// **Parameter `interaction`:** The interaction to check against
+///
+/// **Returns:** A boolean that indicates if the interaction is a context menu application command
 pub fn isContextMenuApplicationCommandInteraction(
     interaction: &APIApplicationCommandInteraction,
 ) -> bool {

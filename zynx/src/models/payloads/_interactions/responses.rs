@@ -9,9 +9,7 @@ use crate::models::rest::RESTPostAPIWebhookWithTokenJSONBody;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type>
 #[repr(u8)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Serialize_repr, Deserialize_repr)]
 pub enum InteractionType {
@@ -22,9 +20,7 @@ pub enum InteractionType {
     ModalSubmit = 5,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object>
 #[derive(Debug, Clone, PartialEq, Serialize)]
 #[serde(untagged)]
 pub enum APIInteractionResponse {
@@ -91,60 +87,38 @@ pub struct APIInteractionResponseLaunchActivity {
     pub r#type: InteractionResponseType,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type>
 #[repr(u8)]
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash, Serialize_repr, Deserialize_repr)]
 pub enum InteractionResponseType {
-    /**
-     * ACK a `Ping`
-     */
+    /// ACK a `Ping`
     Pong = 1,
-    /**
-     * Respond to an interaction with a message
-     */
+    /// Respond to an interaction with a message
     ChannelMessageWithSource = 4,
-    /**
-     * ACK an interaction and edit to a response later, the user sees a loading state
-     */
+    /// ACK an interaction and edit to a response later, the user sees a loading state
     DeferredChannelMessageWithSource = 5,
-    /**
-     * ACK a button interaction and update it to a loading state
-     */
+    /// ACK a button interaction and update it to a loading state
     DeferredMessageUpdate = 6,
-    /**
-     * ACK a button interaction and edit the message to which the button was attached
-     */
+    /// ACK a button interaction and edit the message to which the button was attached
     UpdateMessage = 7,
-    /**
-     * For autocomplete interactions
-     */
+    /// For autocomplete interactions
     ApplicationCommandAutocompleteResult = 8,
-    /**
-     * Respond to an interaction with an modal for a user to fill-out
-     */
+    /// Respond to an interaction with an modal for a user to fill-out
     Modal = 9,
-    /**
-     * Respond to an interaction with an upgrade button, only available for apps with monetization enabled
-     *
-     * @deprecated Send a button with Premium type instead.
-     * {@link https://discord.com/developers/docs/change-log#premium-apps-new-premium-button-style-deep-linking-url-schemes | Learn more here}
-     */
+    /// Respond to an interaction with an upgrade button, only available for apps with monetization enabled
+    ///
+    /// **Deprecated:** Send a button with Premium type instead.
+    /// [Learn more here](https://discord.com/developers/docs/change-log#premium-apps-new-premium-button-style-deep-linking-url-schemes)
     PremiumRequired = 10,
 
-    /**
-     * Launch the Activity associated with the app.
-     *
-     * @remarks
-     * Only available for apps with Activities enabled
-     */
+    /// Launch the Activity associated with the app.
+    ///
+    /// **Note:**
+    /// Only available for apps with Activities enabled
     LaunchActivity = 12,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure>
 pub type APIInteractionResponseCallbackData = RESTPostAPIWebhookWithTokenJSONBody;
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -157,22 +131,14 @@ pub struct APICommandAutocompleteInteractionResponseCallbackData {
     pub choices: Option<Vec<APIApplicationCommandOptionChoice>>,
 }
 
-/**
- * @see {@link https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal}
- */
+/// See <https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-modal>
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct APIModalInteractionResponseCallbackData {
-    /**
-     * A developer-defined identifier for the component, max 100 characters
-     */
+    /// A developer-defined identifier for the component, max 100 characters
     pub custom_id: String,
-    /**
-     * The title of the popup modal
-     */
+    /// The title of the popup modal
     pub title: String,
-    /**
-     * Between 1 and 5 (inclusive) components that make up the modal
-     */
+    /// Between 1 and 5 (inclusive) components that make up the modal
     pub components: Vec<APIActionRowComponent<APIComponentInModalActionRow>>,
 }
 

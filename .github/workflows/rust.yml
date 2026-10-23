@@ -26,6 +26,10 @@ jobs:
         run: cargo clippy --workspace --all-targets --all-features
       - name: Compile documentation examples
         run: cargo test --workspace --doc --all-features
+      - name: Build documentation
+        env:
+          RUSTDOCFLAGS: -D rustdoc::broken_intra_doc_links -D rustdoc::invalid_html_tags -D rustdoc::bare_urls
+        run: cargo doc --workspace --no-deps --all-features
 
   test:
     strategy:

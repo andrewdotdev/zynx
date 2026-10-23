@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/zynx.png" alt="Zynx logo" width="180">
+  <img src="https://raw.githubusercontent.com/andrewdotdev/zynx/master/assets/zynx.png" alt="Zynx logo" width="180">
 </p>
 
-> [!WARNING]
+> **Warning:**
 > This is an early development release. APIs may change, REST support is limited,
 > and the project is not yet recommended for production use.
 
@@ -86,6 +86,7 @@ cargo clippy --workspace --all-targets --all-features
 cargo test --workspace --all-targets
 cargo test --workspace --all-targets --all-features
 cargo test --workspace --doc --all-features
+RUSTDOCFLAGS="-D rustdoc::broken_intra_doc_links -D rustdoc::invalid_html_tags -D rustdoc::bare_urls" cargo doc --workspace --no-deps --all-features
 ```
 
 Tests use in-memory WebSockets and local mock HTTP servers; no bot token or

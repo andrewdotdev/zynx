@@ -1,8 +1,16 @@
+//! Procedural macros for Zynx event handlers.
+//!
+//! Applications should use the `event_handler` re-export from
+//! [zynx](https://docs.rs/zynx) to register handlers.
+
 use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{FnArg, ItemFn, PatType, Type, parse_macro_input, spanned::Spanned};
 
-/// #[event_handler] on_* free functions
+/// Registers an async `on_*` free function as a Gateway event handler.
+///
+/// The function must return `()` and accept a context, optionally followed by
+/// an owned event payload. Parameter types must be explicit.
 #[proc_macro_attribute]
 pub fn event_handler(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let input = parse_macro_input!(item as ItemFn);
