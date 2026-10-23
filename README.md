@@ -4,9 +4,7 @@
 <h1></h1>
 
 <p align="center">
-  An experimental Rust library for Discord bots, with typed Gateway events,
-  async handlers, and an optional <code>#[event_handler]</code> attribute for registration.
-  The workspace separates the runtime library from its procedural macros.
+  An experimental Rust library for Discord bots
 </p>
 
 > [!WARNING]
